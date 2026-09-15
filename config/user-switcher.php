@@ -12,7 +12,7 @@ return [
      * Which app environments the widget is allowed to run in, even when
      * enabled=true. Ignored when authorization_callback is set.
      */
-    'environments' => explode(',', env('USER_SWITCHER_ENVIRONMENTS', 'local,testing')),
+    'environments' => explode(',', (string) env('USER_SWITCHER_ENVIRONMENTS', 'local,testing')),
 
     /*
      * The Eloquent model to list and switch between.
