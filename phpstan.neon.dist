@@ -1,0 +1,18 @@
+parameters:
+    level: 5
+    paths:
+        - src
+        - config
+    tmpDir: build/phpstan
+    ignoreErrors:
+        # env() in a package's own config file is the correct pattern (this
+        # is what every Spatie package does) — Larastan's check is meant for
+        # application code reading env() outside config/, not for a
+        # package's config file itself.
+        - identifier: larastan.noEnvCallsOutsideOfConfig
+        # view('user-switcher::...') — the namespace is registered at
+        # runtime by the service provider in a consuming app; Larastan
+        # analysing this package in isolation has no way to know the
+        # resources/views files exist under that namespace.
+        - identifier: argument.type
+          path: src/Livewire/UserSwitcherWidget.php
