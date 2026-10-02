@@ -1,5 +1,8 @@
 # CLAUDE.md
 
+@~/.claude/laravel-php-guidelines.md
+@~/.claude/laravel-security.md
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Commands
