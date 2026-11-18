@@ -58,6 +58,18 @@ it('restores the original user on stop', function (): void {
     expect(session()->has('user-switcher.original_id'))->toBeFalse();
 });
 
+it('switches when another component dispatches the switch event', function (): void {
+    $admin = User::create(['first_name' => 'Admin', 'last_name' => 'One', 'email' => 'admin@example.com']);
+    $target = User::create(['first_name' => 'Regular', 'last_name' => 'User', 'email' => 'regular@example.com']);
+
+    Livewire::actingAs($admin)
+        ->test(UserSwitcherWidget::class)
+        ->dispatch('user-switcher:switch', id: (string) $target->id);
+
+    expect(Auth::id())->toBe($target->id);
+    expect(session('user-switcher.original_id'))->toBe($admin->id);
+});
+
 it('blocks switching when not allowed, even via a direct component call', function (): void {
     $admin = User::create(['first_name' => 'Admin', 'last_name' => 'One', 'email' => 'admin@example.com']);
     $target = User::create(['first_name' => 'Regular', 'last_name' => 'User', 'email' => 'regular@example.com']);

@@ -3,6 +3,7 @@
 namespace NettSite\LaravelUserSwitcher\Livewire;
 
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use NettSite\LaravelUserSwitcher\UserSwitcherGate;
 
@@ -15,6 +16,8 @@ class UserSwitcherWidget extends Component
         $this->open = ! $this->open;
     }
 
+    /** Lets another page (e.g. a "Switch to" button on a users list) trigger a switch without reaching into this component. */
+    #[On('user-switcher:switch')]
     public function switchTo(string $id): void
     {
         abort_unless(UserSwitcherGate::allowed(), 403);
